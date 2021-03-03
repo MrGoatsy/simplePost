@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
-{
-    public function __construct(){
+class LoginController extends Controller {
+    public function __construct() {
         $this->middleware(['guest']);
     }
 
-    public function index(){
+    public function index() {
         return view('auth.login');
     }
 
-    public function store(Request $request){
+    public function store(Request $request) {
         $this->validate($request, [
             'username' => [
                 'required',
@@ -23,9 +23,10 @@ class LoginController extends Controller
             ],
             'password' => [
                 'required',
-            ]]);
+            ]
+        ]);
 
-        if(!auth()->attempt($request->only('username', 'password'), $request->remember)){
+        if (!Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
             return back()->with('status', 'Invalid login details');
         }
 

@@ -2,13 +2,12 @@
 
 @section('content')
     <div class="flex justify-center">
-        <div class="w-8/12 bg-gray-100 p-6 m-6">
-            @auth
+        <div class="w-8/12 bg-gray-700 p-6 m-6">
                 <form action="{{ route('posts') }}" method="POST">
                     @csrf
                     <div class="mb-4">
                         <label for="body" class="sr-only">Body</label>
-                        <textarea name="body" class="border-2 w-full p-4 focus:outline-none" placeholder="Post something cool...">{{ old('body') }}</textarea>
+                        <textarea name="body" class="border-2 w-full p-4 text-gray-900 focus:outline-none" placeholder="Post something cool...">{{ old('body') }}</textarea>
                         
                     @error('body')
                         <div class="text-red-500 mt-2 text-sm">
@@ -22,7 +21,6 @@
                         </button>
                     </div>
                 </form>
-            @endauth
             
             @if ($posts->count())
                 @foreach ($posts as $post)

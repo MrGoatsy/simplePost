@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="flex justify-center">
-        <div class="w-8/12 bg-gray-100 p-6 m-6">
-            <form action="{{ route('register') }}" method="POST">
+        <div class="w-8/12 bg-gray-700 p-6 m-6">
+            <form action="{{ route('register') }}" method="POST" class="text-gray-900">
                 @csrf
                 <div class="mb-4">
                     <label for="name" class="sr-only">Name</label>

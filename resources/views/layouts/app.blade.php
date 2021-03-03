@@ -12,9 +12,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
 </head>
-<body class="flex flex-col h-screen">
-    <nav class="p-6 bg-gray-100 flex justify-between">
+<body class="flex flex-col h-screen text-gray-200">
+    <script>
+        $(function() {
+            autosize(document.querySelectorAll('textarea'))
+        });
+    </script>
+    <nav class="p-6 bg-gray-800 flex justify-between">
         <ul class="flex items-center">
             <li><a href="{{ route('home') }}" class="p-3">Home</a></li>
             @auth
@@ -24,7 +30,7 @@
         </ul>
         <ul class="flex items-center">
             @auth
-                <li><a href="" class="p-3">{{ auth()->user()->username }}</a></li>
+                <li><a href="{{route('users.posts', auth()->user()->username)}}" class="p-3">{{ auth()->user()->username }}</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="post" class="p-3 inline">
                         @csrf
@@ -38,9 +44,9 @@
             @endguest
         </ul>
     </nav>
-    <main class="flex-grow">
+    <main class="flex-grow bg-gray-600">
         @yield('content')
     </main>
-    <footer class="p-6 bg-gray-100 flex">&copy;2021&nbsp;-&nbsp;<a href="https://heekdevelopment.com/" target="_blank">heekdevelopment.com</a></footer>
+    <footer class="p-6 bg-gray-800 flex">&copy;2021&nbsp;-&nbsp;<a href="https://heekdevelopment.com/" target="_blank">heekdevelopment.com</a></footer>
 </body>
 </html>

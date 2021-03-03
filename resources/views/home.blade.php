@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex justify-center">
-        <div class="w-8/12 bg-gray-100 p-6 m-6">
+        <div class="w-8/12 bg-gray-700 p-6 m-6">
             Home
         </div>
     </div>
