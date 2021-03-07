@@ -2,7 +2,7 @@
 
 @foreach ($posts as $post)
     @if (Route::current()->getName() == 'posts.show')
-        <?php $post = $posts; ?>
+        <?php $post = $posts; ?>    
     @endif
     <div class="m-2" style="color: white;">
         <a href="{{route('users.posts', $post->user)}}" style="text-decoration: none;">{{$post->user->username}}</a> &bull; <small>{{$post->created_at->diffForHumans()}}</small>
