@@ -40,11 +40,14 @@ class RegisterController extends Controller {
             ]
         ]);
 
+        $rank = !User::count() ? 999 : 1;
+
         User::create([
             'name'      => $request->name,
             'username'  => $request->username,
             'email'     => $request->email,
-            'password'  => Hash::make($request->password)
+            'password'  => Hash::make($request->password),
+            'rank'      => $rank
         ])->sendEmailVerificationNotification();
 
         Auth::attempt(['username' => $request->username, 'password' => $request->password]);

@@ -7,46 +7,79 @@
 
     <title>Simple Post</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+    <style>
+        a{
+            text-decoration: none !important;
+        }
+        h1{
+            color: white;
+        }
+        body{
+            color: white;
+        }
+    </style>
 </head>
-<body class="flex flex-col h-screen text-gray-200">
+<body class="site d-flex flex-column min-vh-100">
     <script>
         $(function() {
             autosize(document.querySelectorAll('textarea'))
         });
     </script>
-    <nav class="p-6 bg-gray-800 flex justify-between">
-        <ul class="flex items-center">
-            <li><a href="{{ route('home') }}" class="p-3">Home</a></li>
-            @auth
-                <li><a href="{{ route('dashboard') }}" class="p-3">Dashboard</a></li>
-            @endauth
-            <li><a href="{{ route('posts') }}" class="p-3">Posts</a></li>
-        </ul>
-        <ul class="flex items-center">
-            @auth
-                <li><a href="{{route('users.posts', auth()->user()->username)}}" class="p-3">{{ auth()->user()->username }}</a></li>
-                <li>
-                    <form action="{{ route('logout') }}" method="post" class="p-3 inline">
-                        @csrf
-                        <button>Logout</button>
-                    </form>
-                </li>
-            @endauth
-            @guest
-                <li><a href="{{ route('register') }}" class="p-3">Register</a></li>
-                <li><a href="{{ route('login') }}" class="p-3">Login</a></li>
-            @endguest
-        </ul>
-    </nav>
-    <main class="flex-grow bg-gray-600">
-        @yield('content')
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid text-end">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+                        @auth
+                            <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a></li>
+                        @endauth
+                        <li class="nav-item"><a href="{{ route('posts') }}" class="nav-link">Posts</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        @auth
+                            <li class="nav-item"><a href="{{route('users.posts', auth()->user()->username)}}" class="nav-link">{{ auth()->user()->username }}</a></li>
+                            <li class="nav-item">
+                                <form action="{{ route('logout') }}" method="post" class="nav-link">
+                                    @csrf
+                                    <button class="bg-transparent border-0 shadow-none" style="color: rgb(167, 167, 167);">Logout</button>
+                                </form>
+                            </li>
+                        @endauth
+                        @guest
+                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
+                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="site-content flex-fill" style="background-color: black; opacity: 90%">
+        <div class="container-fluid">
+            <div class="row mt-2">
+                @yield('content')
+            </div>
+        </div>
     </main>
-    <footer class="p-6 bg-gray-800 flex">&copy;2021&nbsp;-&nbsp;<a href="https://heekdevelopment.com/" target="_blank">heekdevelopment.com</a></footer>
+    <footer>
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid text-light">
+                <a href="https://heekdevelopment.com/" target="_blank">heekdevelopment.com</a>
+            </div>
+        </nav>
+    </footer>
 </body>
 </html>

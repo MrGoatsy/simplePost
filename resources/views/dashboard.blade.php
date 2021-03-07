@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex justify-center">
-        <div class="w-8/12 bg-gray-700 p-6 m-6">
-            Dashboard
-        </div>
-    </div>
+<div class="col-md-2">
+</div>
+<div class="col-md-8 bg-dark">
+    <h1>Dashboard</h1>
+</div>
+<div class="col-md-2">
+</div>
 @endsection

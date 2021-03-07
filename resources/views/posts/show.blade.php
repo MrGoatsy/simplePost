@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex justify-center">
-        <div class="w-8/12 bg-gray-700 p-6 m-6">
-            <x-post :post="$post" />
-        </div>
-    </div>
+<div class="col-md-2">
+</div>
+<div class="col-md-8 flex-fill bg-dark">
+    <x-post :posts="$post" />
+</div>
+<div class="col-md-2">
+</div>
 @endsection

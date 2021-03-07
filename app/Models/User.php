@@ -21,7 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail {
         'name',
         'email',
         'password',
-        'username'
+        'username',
+        'rank',
     ];
 
     /**
@@ -43,15 +44,27 @@ class User extends Authenticatable implements MustVerifyEmail {
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRank() {
+        return $this->rank;
+    }
+
     public function posts() {
         return $this->hasMany(Post::class);
     }
 
-    public function likes() {
+    public function ratings() {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function getReceivedRatings() {
+        return $this->hasManyThrough(Rating::class, Post::class);
+    }
+
+    /*public function likes() {
         return $this->hasMany(Like::class);
     }
 
     public function getReceivedLikes() {
         return $this->hasManyThrough(Like::class, Post::class);
-    }
+    }*/
 }

@@ -17,6 +17,22 @@ class Post extends Model {
         return $this->belongsTo(User::class);
     }
 
+    public function ratings() {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function avgRating() {
+        return $this->ratingAvg;
+    }
+
+    public function ratedBy(User $user) {
+        return $this->ratings->contains('user_id', $user->id);
+    }
+
+    public function ratingCount() {
+        return $this->rating_count;
+    }
+
     public function likes() {
         return $this->hasMany(Like::class);
     }
