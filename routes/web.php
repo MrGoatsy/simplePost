@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserPostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
@@ -40,7 +40,7 @@ Route::patch('/posts/{post}/edit', [PostController::class, 'update'])->name('pos
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 //Post likes
-Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
+//Route::post('/posts/{post}/likes', [PostLikeController::class, 'store'])->name('posts.likes');
 //Route::delete('/posts/{post}/likes', [PostLikeController::class, 'destroy']);
 
 //Post rating
@@ -48,6 +48,9 @@ Route::post('/posts/{post}/rating', [PostRatingController::class, 'store'])->nam
 
 //User posts
 Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])->name('users.posts');
+
+//Search
+Route::get('/search', [SearchController::class, 'index'])->name('search.posts');
 
 //Admin panel
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

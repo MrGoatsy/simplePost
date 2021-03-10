@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder {
         //\App\Models\User::factory(10)->create();
         for ($x = 0; $x < 1000; $x++) {
             DB::table('ratings')->insert([
-                'user_id'   => 1,
-                'post_id'   => rand(950, 1000),
+                'user_id'   => 2,
+                'post_id'   => 7,
                 'stars'     => rand(1, 10),
             ]);
         }

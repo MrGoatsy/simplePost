@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller {
     public function __construct() {
@@ -16,14 +17,20 @@ class PostController extends Controller {
         //$posts = Post::with('user')->orderBy('id', 'desc')->paginate(100);
         //$posts = Post::with('user')->withCount('likes')->orderBy('id', 'desc')->paginate(100);
         //$posts = Post::with('user')->withCount('ratings')->orderBy('posts.id', 'desc')->paginate(100);
-        $posts = Post::with('user')->withCount([
+        /*$posts = Post::with('user')->withCount([
             'ratings AS ratingAvg' => function ($query) {
                 $query->select(DB::raw("AVG(stars) as ratingAvg"));
             }
-        ])->orderBy('posts.created_at', 'desc')->paginate(100);
+        ])->orderBy('posts.created_at', 'desc')->paginate(100);*/
+
+        $posts = Post::with('user')->withCount([
+            'ratings AS rated' => function ($query) {
+                $query->select(DB::raw('stars AS rated'))->where('user_id', Auth::id())->toSql();
+            }
+        ])->withAvg('ratings', 'stars')->orderBy('posts.created_at', 'desc')->paginate(100);
 
         return view('posts.index', [
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
 
@@ -62,7 +69,10 @@ class PostController extends Controller {
             ],
         ]);
 
-        $request->user()->posts()->update([
+        Post::where([
+            'id'        => $post->id,
+            'user_id'   => Auth::id()
+        ])->update([
             'content'   => $request->body
         ]);
 
@@ -70,8 +80,20 @@ class PostController extends Controller {
     }
 
     public function show(Post $post) {
+        /*$posts = Post::where('posts.id', '=', $post->id)->withCount([
+            'ratings AS ratingAvg' => function ($query) {
+                $query->select(DB::raw("AVG(stars) as ratingAvg"));
+            }
+        ])->get();*/
+
+        $posts = Post::with('user')->withCount([
+            'ratings AS rated' => function ($query) {
+                $query->select(DB::raw('stars AS rated'))->where('user_id', Auth::id())->toSql();
+            }
+        ])->withAvg('ratings', 'stars')->where('posts.id', $post->id)->orderBy('posts.created_at', 'desc')->get();
+
         return view('posts.show', [
-            'post'  => $post
+            'post'  => $posts
         ]);
     }
 

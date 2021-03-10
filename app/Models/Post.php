@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Post extends Model {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = [
         'content',
@@ -21,16 +22,8 @@ class Post extends Model {
         return $this->hasMany(Rating::class);
     }
 
-    public function avgRating() {
-        return $this->ratingAvg;
-    }
-
-    public function ratedBy(User $user) {
-        return $this->ratings->contains('user_id', $user->id);
-    }
-
     public function ratingCount() {
-        return $this->rating_count;
+        return $this->ratings_count;
     }
 
     public function likes() {

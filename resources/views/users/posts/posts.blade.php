@@ -6,9 +6,9 @@
 <div class="col-md-8 bg-dark">
         <h1>{{$user->username}}</h1>
         Has made {{$posts->total()}} {{Str::plural('post', $posts->total())}} with a total of {{$user->getReceivedRatings()->count()}} {{Str::plural('vote', $user->getReceivedRatings()->count())}}
+        <hr />
         @if ($posts->count())
-                <x-post :posts="$posts" />
-            {{$posts->links()}}
+            <x-post :posts="$posts" />
         @else
             {{$user->name}} has no posts.
         @endif

@@ -16,6 +16,7 @@
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/autosize@4.0.2/dist/autosize.min.js"></script>
+    <script src="{{asset('js/ajax.js')}}"></script>
     <style>
         a{
             text-decoration: none !important;
@@ -42,25 +43,33 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
+                        <li class="nav-item"><a href="{{route('home')}}" class="nav-link">Home</a></li>
                         @auth
-                            <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a></li>
+                            <li class="nav-item"><a href="{{route('dashboard')}}" class="nav-link">Dashboard</a></li>
                         @endauth
-                        <li class="nav-item"><a href="{{ route('posts') }}" class="nav-link">Posts</a></li>
+                        <li class="nav-item"><a href="{{route('posts')}}" class="nav-link">Posts</a></li>
+                    </ul>
+                    <ul class="navbar-nav mx-auto mb-2 mt-2 mb-lg-0">
+                        <form action="{{route('search.posts')}}" method="get">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Search..." aria-label="Search..." aria-describedby="search">
+                                <button class="btn btn-success bi bi-search" type="submit" id="search"> Search</button>
+                            </div>
+                        </form>
                     </ul>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         @auth
-                            <li class="nav-item"><a href="{{route('users.posts', auth()->user()->username)}}" class="nav-link">{{ auth()->user()->username }}</a></li>
+                            <li class="nav-item"><a href="{{route('users.posts', Auth::user()->username)}}" class="nav-link">{{Auth::user()->username}}</a></li>
                             <li class="nav-item">
-                                <form action="{{ route('logout') }}" method="post" class="nav-link">
+                                <form action="{{route('logout')}}" method="post" class="nav-link">
                                     @csrf
-                                    <button class="bg-transparent border-0 shadow-none" style="color: rgb(167, 167, 167);">Logout</button>
+                                    <button type="submit" class="bg-transparent border-0 shadow-none" style="color: rgb(167, 167, 167);">Logout</button>
                                 </form>
                             </li>
                         @endauth
                         @guest
-                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>
-                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
+                            <li class="nav-item"><a href="{{route('register')}}" class="nav-link">Register</a></li>
+                            <li class="nav-item"><a href="{{route('login')}}" class="nav-link">Login</a></li>
                         @endguest
                     </ul>
                 </div>

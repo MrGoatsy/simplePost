@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostRatingController extends Controller {
     public function __construct() {
@@ -11,15 +13,23 @@ class PostRatingController extends Controller {
     }
 
     public function store(Post $post, Request $request) {
-        /*if ($post->ratedBy($request->user())) {
-            return $this->destroy($post, $request);
-            //return response(null, 409);
-        }*/
-
-        $post->ratings()->updateOrCreate(['post_id' => $post->id,], [
-            'user_id'   => $request->user()->id,
-            'stars'     => $request->rating,
+        $this->validate($request, [
+            'rating' => [
+                'required',
+                'integer',
+                'between:0,10'
+            ]
         ]);
+
+        $post->ratings()->updateOrCreate(
+            [
+                'post_id'   => $post->id,
+                'user_id'   => Auth::id(),
+            ],
+            [
+                'stars'     => $request->rating,
+            ]
+        );
 
 
         return back();

@@ -9,7 +9,7 @@
             <p>{{session('status')}}</p>
         </div>
     @endif
-    <h1>Login</h1>
+    <h1>Login</h1><hr />
     <form action="{{ route('login') }}" method="POST" class="text-gray-900 focus:outline-none mt-2">
         @csrf
         <div class="mb-4">

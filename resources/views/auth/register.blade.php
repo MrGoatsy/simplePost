@@ -4,7 +4,7 @@
 <div class="col-md-2">
 </div>
 <div class="col-md-8 bg-dark">
-    <h1>Register</h1>
+    <h1>Register</h1><hr />
     <x-alert error="green"/>
     <form action="{{ route('register') }}" method="POST" class="text-gray-900">
         @csrf

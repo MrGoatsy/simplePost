@@ -4,7 +4,7 @@
 <div class="col-md-2">
 </div>
 <div class="col-md-8 bg-dark">
-    <h1>Home</h1>
+    <h1>Home</h1><hr />
     
 </div>
 <div class="col-md-2">
