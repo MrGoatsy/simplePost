@@ -67,7 +67,7 @@
                     <a href="{{route('posts.show', $post)}}" class="btn btn-success float-end ms-2">View</a>
                 @endif
                 @auth
-                    @can('DELETE', $post)
+                    @can('UPDATE', $post)
                         <a href="{{route('posts.edit', $post)}}" class="btn btn-warning float-end ms-2">Edit</a>
                     @endcan
                     @can('DELETE', $post)
@@ -91,3 +91,14 @@
         {{$posts->links()}}
     </div>
 @endif
+<script>
+    $(document).ready(function() {
+        $("#liveToast").toast('show');
+    });
+</script>
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div class="toast-body border border-5 border-danger alert-warning">
+        @inject('UserRanks', 'App\Models\UserRanks')
+        <span>You are logged in as a/an <strong>{{$UserRanks->getRankName(Auth::user())->rankName}}<strong></span>
+    </div>
+</div>

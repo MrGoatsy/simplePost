@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostRatingController extends Controller {
     public function __construct() {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified', 'rank:User']);
     }
 
     public function store(Post $post, Request $request) {

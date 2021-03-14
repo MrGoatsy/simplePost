@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller {
     public function __construct() {
-        $this->middleware(['auth', 'verified'])->only(['store', 'updateView', 'update', 'destroy']);
+        $this->middleware(['auth', 'verified', 'rank:User'])->only(['store', 'updateView', 'update', 'destroy']);
     }
 
     public function index() {

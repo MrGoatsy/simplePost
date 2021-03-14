@@ -53,7 +53,11 @@ Route::get('/users/{user:username}/posts', [UserPostController::class, 'index'])
 Route::get('/search', [SearchController::class, 'index'])->name('search.posts');
 
 //Admin panel
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/admin', [DashboardController::class, 'index'])->name('admin');
+Route::get('/admin/users', [DashboardController::class, 'usersView'])->name('admin.users');
+Route::get('/admin/users/search', [DashboardController::class, 'userSearch'])->name('admin.users.search');
+Route::get('/admin/users/warn/{user:username}', [DashboardController::class, 'userWarn'])->name('admin.users.warn');
+Route::get('/admin/posts', [DashboardController::class, 'posts'])->name('admin.posts');
 
 //Home
 Route::get('/home', function () {
